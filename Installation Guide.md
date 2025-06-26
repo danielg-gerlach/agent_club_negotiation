@@ -1,81 +1,123 @@
-# Agentensystem zur Spielertauschverhandlung
+# Club Negotiator – Agentensystem zur Spielertauschverhandlung
 
-Dieses Projekt implementiert ein agentenbasiertes System zur Simulation von Spielertransferverhandlungen im Profifußball. Die Anwendung ermöglicht es, Verhandlungen zwischen Vereinen mit unterschiedlichen Strategien zu simulieren und zu visualisieren.
+Ein intelligentes Multi-Agenten-System zur Simulation von Transferverhandlungen im Profifußball, entwickelt im Rahmen der Lehrveranstaltung **„Intelligente Systeme“**.
+
+---
 
 ## Voraussetzungen
 
-Stellen Sie sicher, dass die folgende Software auf Ihrem System installiert ist:
+* **Python** ≥ 3.9  
+* **pip** (wird i. d. R. mit Python installiert)  
+* **Git** (optional, zum Klonen des Repositories)  
 
-* **Python**: Version 3.9 oder neuer.  
-* **pip**: Der Python Package Installer (wird in der Regel mit Python installiert).  
-* **Git**: Optional, zum Klonen des Repositories.  
+---
 
-## Installation (Anleitung für Windows)
+## Installation
 
-Führen Sie die folgenden Schritte im Windows Terminal (Eingabeaufforderung oder PowerShell) aus.
+> **Hinweis:** Befehle in einer aktivierten (venv)-Umgebung ausführen.  
+> Windows-Pfade verwenden `\`, macOS/Linux `/`.
 
-### 1. Projektdateien beziehen
-
-Klone Sie das Repository mit Git:
+### 1 · Projektdateien beziehen
 
 ```bash
 git clone <URL_des_Projekts>
 ```
 
-*Alternativ können Sie die Projektdateien als ZIP-Archiv herunterladen und manuell entpacken.*
+*Alternativ: ZIP-Archiv herunterladen und entpacken.*
 
-### 2. Projektverzeichnis öffnen
-
-Navigieren Sie in das Hauptverzeichnis des Projekts:
+### 2 · Projektverzeichnis öffnen
 
 ```bash
-cd pfad\zum\projekt
+cd pfad\zum\projekt          # Windows
+# oder
+cd /pfad/zum/projekt         # macOS/Linux
 ```
 
-### 3. Virtuelle Umgebung erstellen und aktiviere
+### 3 · Virtuelle Umgebung erstellen & aktivieren
+
+**Windows**
 
 ```bash
-# Erstellen der virtuellen Umgebung (der Name "venv" ist eine Konvention)
 python -m venv venv
-
-# Aktivieren der virtuellen Umgebung
 .\venv\Scripts\activate
 ```
 
-Nach der Aktivierung sollte `(venv)` am Anfang Ihrer Kommandozeile erscheinen.
+**macOS / Linux**
 
-### 4. Abhängigkeiten installieren
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-Installieren Sie alle für das Projekt erforderlichen Python-Bibliotheken:
+*(Nach Aktivierung erscheint `(venv)` vor der Eingabeaufforderung.)*
+
+### 4 · Abhängigkeiten installieren
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Datenquelle einrichten
-
-Die Anwendung benötigt eine Datengrundlage zur Analyse.
-
-* **CSV-Datei**: Für die Ausführung wird eine CSV-Datei mit Spielerdaten benötigt.  
-* **Dateiname und Speicherort**: Stellen Sie sicher, dass die Datei `player_stats.csv` heißt und sich direkt im Hauptverzeichnis des Projekts befindet.  
-* *Hinweis*: Die ursprüngliche Datengrundlage für dieses Projekt stammt von Plattformen wie Kaggle.  
+---
 
 ## Ausführung der Anwendung
 
-Nach erfolgreicher Installation kann die interaktive Webanwendung gestartet werden.
-
-1. Stellen Sie sicher, dass Ihre virtuelle Umgebung noch aktiv ist (`(venv)` wird angezeigt).  
-2. Führen Sie den folgenden Befehl im Hauptverzeichnis des Projekts aus:
+### Web-Interface (empfohlen)
 
 ```bash
 streamlit run app.py
 ```
 
-Dieser Befehl startet einen lokalen Webserver und öffnet die Anwendung automatisch in Ihrem Standard-Webbrowser. Nun können Sie die Simulationen durchführen.
+*Öffnet automatisch `http://localhost:8501` im Browser.*
+
+### Kommandozeilen-Interface (Alternative)
+
+```bash
+python main.py
+```
+
+---
+
+## Erste Schritte
+
+1. **Daten laden**: Sidebar → *Daten laden / Daten neu laden*  
+2. **Navigation** wählen:  
+   * *Datenübersicht* – Statistiken zu Vereinen & Spielern  
+   * *Vereinsanalyse* – Detailanalysen  
+   * *Transfer-Verhandlungen* – Hauptfunktion  
+3. **Verhandlung konfigurieren**:  
+   * Zwei Vereine wählen  
+   * Strategie: *offensive*, *defensive*, *balanced*, *technical*, *custom*  
+   * Bei *custom*: Attribute per Slider gewichten  
+   * Parameter: Runden-Anzahl, Start-Temperatur  
+4. **Verhandlung starten** und Live-Updates beobachten  
+
+---
+
+## Projektstruktur (Auszug)
+
+```
+├─ app.py              # Streamlit Web-Interface
+├─ main.py             # CLI-Interface
+├─ config.py           # Zentrale Konfiguration
+├─ PlayerAgent.py      # Spieler-Klassen
+├─ ClubAgent.py        # Vereins-Agenten mit Strategien
+├─ FootballMediator.py # Neutraler Vermittler
+├─ PlayerDataLoader.py # CSV-Import & Verarbeitung
+├─ TransferTracker.py  # Transfer-Protokollierung
+└─ data_class.py       # Hilfsfunktionen
+```
+
+---
 
 ## Projekt-Abhängigkeiten (`requirements.txt`)
 
 ```text
+streamlit==1.45.1
+pandas==2.2.3
+numpy==2.2.5
+matplotlib==3.10.3
+seaborn==0.13.0
+plotly==5.18.0
 altair==5.5.0
 attrs==25.3.0
 blinker==1.9.0
@@ -94,11 +136,8 @@ jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
 kiwisolver==1.4.8
 MarkupSafe==3.0.2
-matplotlib==3.10.3
 narwhals==1.39.0
-numpy==2.2.5
 packaging==24.2
-pandas==2.2.3
 pillow==11.2.1
 protobuf==6.31.0
 pyarrow==20.0.0
@@ -111,7 +150,6 @@ requests==2.32.3
 rpds-py==0.25.0
 six==1.17.0
 smmap==5.0.2
-streamlit==1.45.1
 tenacity==9.1.2
 toml==0.10.2
 tornado==6.4.2
@@ -119,3 +157,24 @@ typing_extensions==4.13.2
 tzdata==2025.2
 urllib3==2.4.0
 ```
+
+---
+
+## Fehlerbehebung
+
+| Problem | Lösung |
+|---------|--------|
+| **ModuleNotFoundError** | Virtuelle Umgebung aktivieren, anschließend `pip install -r requirements.txt`. |
+| **FileNotFoundError: player_stats.csv** | CSV liegt nicht im Hauptverzeichnis oder Dateiname falsch. |
+| **UnicodeDecodeError** | CSV muss im `ISO-8859-1` Encoding vorliegen (ggf. `config.py` anpassen). |
+| **Leere Vereinsliste / keine Vereine** | CSV-Format prüfen: Semikolon-getrennt, mind. 11 Spieler pro Verein, Spaltenüberschriften korrekt. |
+
+---
+
+## Konfiguration anpassen
+
+* **Strategien**: `STRATEGY_CONFIG` in `config.py`  
+* **Simulated Annealing**: `SA_CONFIG` (Temperaturverlauf)  
+* **System-Parameter**: `SYSTEM_CONFIG` (Dateipfade, Limits)
+
+---
