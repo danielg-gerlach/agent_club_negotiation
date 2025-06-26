@@ -2,6 +2,8 @@
 
 Ein intelligentes Multi-Agenten-System zur Simulation von Transferverhandlungen im Profifußball, entwickelt im Rahmen der Lehrveranstaltung **„Intelligente Systeme“**.
 
+Deployte Version: https://club-negotiation.streamlit.app/
+
 ---
 
 ## Voraussetzungen
